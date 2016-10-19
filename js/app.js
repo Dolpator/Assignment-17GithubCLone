@@ -18,7 +18,7 @@ var fetchUpperNav = function(){
 }
 var fetchSecondNavBar = function(){
 var mySecNavBar = '';
-    mySecNavBar +=         '<input type="text" id="repo-input" class="form-control repo-value" placeholder="Search Repositories...">'
+    mySecNavBar +=         '<input type="text" id="repo-input" class="form-control" placeholder="Search Repositories...">'
     mySecNavBar +=         '<span class="input-group-btn">'
     mySecNavBar +=            '<button class="btn btn-default" type="button">Type <strong>ALL</strong>'
     mySecNavBar +=               '<span class="caret"></span>'
@@ -49,11 +49,8 @@ var mySecNavBar = '';
 
 var fetchGitHubProfile = function(inputState){
    $.getJSON("https://api.github.com/users/" + inputState + "?"+ MyApiSecret).then( function(returnData){
-      console.log(returnData)
-
-
-
-      var myProfileStr =   '<img class = "avatar-img" src="' + returnData.avatar_url + '"/>'
+  var myProfileStr = '';
+      myProfileStr =   '<img class = "avatar-img" src="' + returnData.avatar_url + '"/>'
       myProfileStr +=      "<h3>" + returnData.name + "</h3>"
       myProfileStr +=      "<h3>" + returnData.login + "</h3>"
       myProfileStr +=      "<p>" + returnData.bio + "</p>"
@@ -73,7 +70,7 @@ var fetchGitHubProfile = function(inputState){
 
 var fetchGitHubProfRepo = function(inputState){
    $.getJSON("https://api.github.com/users/" + inputState + "/repos?" + MyApiSecret).then(function(returnData){
-       console.log(returnData)
+      // console.log(returnData)
 
      var myRepoStr = '<ul class="repo-container repoList">'+ myRepoStr
       for(var key in returnData){
@@ -87,13 +84,12 @@ var fetchGitHubProfRepo = function(inputState){
 }
 var fetchGitHubLang = function(inputState){
    $.getJSON("https://api.github.com/users/" + inputState + "/repos?" + MyApiSecret).then(function(returnData){
-       console.log(returnData)
+       //console.log(returnData)
       var myLangStr = '<ul class = "language-container langList">'+ myLangStr
        for(var key in returnData){
           myLangStr +="<li>" + "<br>"+"<br>" + "</li>"
           myLangStr +='<li>' + returnData[key].language +'</li>'
           myLangStr +='<li>' + "<br>" + "</li>"
-         //  myLangStr +="<li>" + "<hr>" + "</li>"
           myLangStr +='</ul>'
    }
       langProfile.innerHTML = myLangStr
@@ -101,13 +97,12 @@ var fetchGitHubLang = function(inputState){
 }
 var fetchGitHubWatch = function(inputState){
    $.getJSON("https://api.github.com/users/" + inputState + "/repos?" + MyApiSecret).then(function(returnData){
-       console.log(returnData)
+      // console.log(returnData)
       var myWatchStr = '<ul class = "watch-container watchList">'+ myWatchStr
        for(var key in returnData){
           myWatchStr +="<li>" + "<br>"+"<br>" + "</li>"
           myWatchStr +='<li>' +'<i class="fa fa-heart" aria-hidden="true"></i>'+" "+ returnData[key].watchers +'</li>'
           myWatchStr +='<li>' + "<br>" + "</li>"
-         //  myLangStr +="<li>" + "<hr>" + "</li>"
           myWatchStr +='</ul>'
    }
       watchProfile.innerHTML = myWatchStr
@@ -115,7 +110,7 @@ var fetchGitHubWatch = function(inputState){
 }
 var fetchGitHubStar = function(inputState){
    $.getJSON("https://api.github.com/users/" + inputState + "/repos?" + MyApiSecret).then(function(returnData){
-       console.log(returnData)
+
       var myStarStr = '<ul class = "star-container starList">'+ myStarStr
        for(var key in returnData){
           myStarStr +="<li>" + "<br>"+"<br>" + "</li>"
@@ -129,27 +124,18 @@ var fetchGitHubStar = function(inputState){
    })
 }
 
-var repoSelect = function(evt){
-var repoState = document.querySelect('.repo-value')
-
-   if(evt.KeyCode === 13){
-         repoValue = repoSelect.value;
-   }
-      console.log(reposelect.value)
-}
-
 var profileSelect = function(evt){
 var inputState = document.querySelector('.input-value')
 
    if(evt.keyCode === 13){
       window.location.hash = inputState.value;
    }
-      console.log(inputState.value)
+
 }
+
 
 var inputRouter = function(){
    var currentInput = window.location.hash.slice(1)
-
 
    if (currentInput.length === 0){
       fetchGitHubProfile("Dolpator")
@@ -167,7 +153,6 @@ var inputRouter = function(){
       fetchGitHubWatch(currentInput)
 }
 
-
 if( typeof myApiSecret === 'undefined' ){
    var myApiSecret = ''
 }
@@ -179,9 +164,9 @@ var repoProfile = document.querySelector('.repo-container')
 var starProfile = document.querySelector('.star-container')
 var langProfile = document.querySelector('.language-container')
 var watchProfile = document.querySelector('.watch-container')
+
 inputRouter()
 fetchUpperNav()
 fetchSecondNavBar()
 window.addEventListener('hashchange',inputRouter )
 window.addEventListener('keydown', profileSelect)
-//window.addEventListener('keydown',repoSelect)

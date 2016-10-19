@@ -1,6 +1,52 @@
 console.log('wired up!')
 
 
+var fetchUpperNav = function(){
+  var myNavBar = '';
+      myNavBar +=      '<div class="navbar-header">'
+      myNavBar +=         '<form>'
+      myNavBar +=            '<input type="text" id="profile-input" class="form-control input-value" placeholder="Search Github" value="">'
+      myNavBar +=         '</form>'
+      myNavBar +=      '</div>'
+      myNavBar +=      '<ul class="nav navbar-nav">'
+      myNavBar +=         '<li><a href="#">Pull Request</a></li>'
+      myNavBar +=         '<li><a href="#">Issues</a></li>'
+      myNavBar +=         '<li><a href="#">Gist</a></li>'
+      myNavBar +=      '</ul>'
+
+      upperNavBar.innerHTML = myNavBar
+}
+var fetchSecondNavBar = function(){
+var mySecNavBar = '';
+    mySecNavBar +=         '<input type="text" id="repo-input" class="form-control repo-value" placeholder="Search Repositories...">'
+    mySecNavBar +=         '<span class="input-group-btn">'
+    mySecNavBar +=            '<button class="btn btn-default" type="button">Type <strong>ALL</strong>'
+    mySecNavBar +=               '<span class="caret"></span>'
+    mySecNavBar +=            '</button>'
+    mySecNavBar +=            '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'
+    mySecNavBar +=               '<li><a href="#">Action</a></li>'
+    mySecNavBar +=               '<li><a href="#">Another action</a></li>'
+    mySecNavBar +=               '<li><a href="#">Something else here</a></li>'
+    mySecNavBar +=               '<li role="separator" class="divider"></li>'
+    mySecNavBar +=               '<li><a href="#">Separated link</a></li>'
+    mySecNavBar +=            '</ul>'
+    mySecNavBar +=            '<button class="btn btn-default" type="button">Language <strong>ALL</strong>'
+    mySecNavBar +=               '<span class="caret"></span>'
+    mySecNavBar +=            '</button>'
+    mySecNavBar +=            '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'
+    mySecNavBar +=              ' <li><a href="#">Action</a></li>'
+    mySecNavBar +=               '<li><a href="#">Another action</a></li>'
+    mySecNavBar +=               '<li><a href="#">Something else here</a></li>'
+    mySecNavBar +=               '<li role="separator" class="divider"></li>'
+    mySecNavBar +=               '<li><a href="#">Separated link</a></li>'
+    mySecNavBar +=            '</ul>'
+    mySecNavBar +=         '</span>'
+
+
+      secondNavBar.innerHTML = mySecNavBar
+}
+
+
 var fetchGitHubProfile = function(inputState){
    $.getJSON("https://api.github.com/users/" + inputState + "?"+ MyApiSecret).then( function(returnData){
       console.log(returnData)
@@ -125,6 +171,8 @@ var inputRouter = function(){
 if( typeof myApiSecret === 'undefined' ){
    var myApiSecret = ''
 }
+var secondNavBar = document.querySelector('.sec-nav')
+var upperNavBar = document.querySelector('.main-navBar')
 var appProfile = document.querySelector('#app-container')
 var userProfile = document.querySelector('.user-container')
 var repoProfile = document.querySelector('.repo-container')
@@ -132,6 +180,8 @@ var starProfile = document.querySelector('.star-container')
 var langProfile = document.querySelector('.language-container')
 var watchProfile = document.querySelector('.watch-container')
 inputRouter()
+fetchUpperNav()
+fetchSecondNavBar()
 window.addEventListener('hashchange',inputRouter )
 window.addEventListener('keydown', profileSelect)
 //window.addEventListener('keydown',repoSelect)

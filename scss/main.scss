@@ -1,0 +1,19 @@
+@import "./imports/_normalize.scss";
+
+*{ box-sizing: border-box }
+img {
+   width: 90%;
+   display: block;
+}
+
+#app-container{
+   font-family: Helvetica, sans-serif;
+}
+.repoList, .langList, .starList, .watchList {
+   list-style-type: None;
+   padding: 0;
+}
+
+i{
+   text-align: right;
+}
